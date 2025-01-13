@@ -1,0 +1,34 @@
+# dependencies
+/day00/ex00/node_modules/
+
+# Expo
+/day00/ex00/.expo/
+/day00/ex00/dist/
+/day00/ex00/web-build/
+/day00/ex00/expo-env.d.ts
+
+# Native
+/day00/ex00/*.orig.*
+/day00/ex00/*.jks
+/day00/ex00/*.p8
+/day00/ex00/*.p12
+/day00/ex00/*.key
+/day00/ex00/*.mobileprovision
+
+# Metro
+/day00/ex00/.metro-health-check*
+
+# debug
+/day00/ex00/npm-debug.*
+/day00/ex00/yarn-debug.*
+/day00/ex00/yarn-error.*
+
+# macOS
+/day00/ex00/.DS_Store
+/day00/ex00/*.pem
+
+# local env files
+/day00/ex00/.env*.local
+
+# typescript
+/day00/ex00/*.tsbuildinfo
