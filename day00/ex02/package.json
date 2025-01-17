@@ -1,6 +1,5 @@
 {
-  "name": "mobile",
-  "license": "0BSD",
+  "name": "ex02",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
