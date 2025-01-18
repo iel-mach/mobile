@@ -8,21 +8,41 @@ export default function App() {
   ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.ALL)
 
 
-  const onButtonPress = (item) => {
-    console.log("button pressed :", item)
+  const [input, setInput] = useState('')
+  const [result, setResult] = useState('')
+
+  const onButtonPress = (value) => {
+    if (value === '=')
+    {
+      try {
+        setResult(eval(input))
+      }catch{
+        setResult('error')
+      }
+    }
+    else if (value === 'AC')
+    {
+      setResult('')
+      setInput('')
+    }
+    else if (value === 'C')
+      setInput(input.slice(0, -1))
+    else
+    {
+      setInput(input + value)
+    }
   }
-  const [input, setInput] = useState(0)
   return (
     <View style={styles.container}>
       <View style={styles.appbar}>
         <Text style={styles.textbar}>Calculator</Text>
       </View>
       <View style={styles.resultcontainer}>
-        <Text style={styles.result}>0</Text>
+        <Text style={styles.resultText}>{result}</Text>
       </View>
       <View style={styles.inputcontainer}>
-        <Text style={styles.input}>0</Text>
-        {/* <TextInput style={styles.input} value={input} onChangeText={setInput} keyboardType='numeric' /> */}
+        {/* <Text style={styles.input}>{input}</Text> */}
+        <TextInput style={styles.input} value={input} onChangeText={setInput} keyboardType='numeric' />
       </View>
       <View style={styles.buttoncontainer}>
         {['7', '8', '9', 'C', 'AC', '4', '5', '6', '+', '-', '1', '2', '3', '*', '/', '0', '.', '00', '='].map(
@@ -57,14 +77,14 @@ const styles = StyleSheet.create({
   textbar: {
     color: '#fff',
     fontWeight: "800",
-    fontSize: wp(4),
+    fontSize: wp(5),
   },
   resultcontainer: {
     flex: 2,
     justifyContent: 'center',
     alignItems: 'flex-end',
   },
-  result: {
+  resultText: {
     fontSize: wp(10),
     color: '#0e8a93',
   },
@@ -85,7 +105,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#10696f"
   },
   botton: {
-    fontSize: wp(15),
+    fontSize: wp(10),
     width: '20%',
     height: '25%',
     justifyContent: 'center',
@@ -94,6 +114,6 @@ const styles = StyleSheet.create({
     borderColor: '#0d6268',
   },
   buttontext: {
-    fontSize: wp(7),
+    fontSize: wp(5),
   },
 });
