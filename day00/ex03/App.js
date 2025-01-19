@@ -37,12 +37,11 @@ export default function App() {
       <View style={styles.appbar}>
         <Text style={styles.textbar}>Calculator</Text>
       </View>
+      <View style={styles.inputcontainer}>
+        <TextInput style={styles.input} value={input} onChangeText={setInput} keyboardType='numeric' />
+      </View>
       <View style={styles.resultcontainer}>
         <Text style={styles.resultText}>{result}</Text>
-      </View>
-      <View style={styles.inputcontainer}>
-        {/* <Text style={styles.input}>{input}</Text> */}
-        <TextInput style={styles.input} value={input} onChangeText={setInput} keyboardType='numeric' />
       </View>
       <View style={styles.buttoncontainer}>
         {['7', '8', '9', 'C', 'AC', '4', '5', '6', '+', '-', '1', '2', '3', '*', '/', '0', '.', '00', '='].map(
@@ -80,8 +79,8 @@ const styles = StyleSheet.create({
     fontSize: wp(5),
   },
   resultcontainer: {
-    flex: 2,
-    justifyContent: 'center',
+    flex: 6,
+    justifyContent: 'flex-start',
     alignItems: 'flex-end',
   },
   resultText: {
@@ -89,7 +88,7 @@ const styles = StyleSheet.create({
     color: '#0e8a93',
   },
   inputcontainer: {
-    flex: 6,
+    flex: 2,
     justifyContent: 'flex-start',
     alignItems: 'flex-end',
   },
