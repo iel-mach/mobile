@@ -1,8 +1,8 @@
 import FontAwesome from 'react-native-vector-icons/FontAwesome5';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
-import CurrentlyScreen from './screen/currentlyscreen';
-import TodayScreen from './screen/todayscreen';
-import WeeklyScreen from './screen/weeklyscreen';
+import CurrentlyScreen from './screens/currentlyscreen';
+import TodayScreen from './screens/todayscreen';
+import WeeklyScreen from './screens/weeklyscreen';
 
 
 const Tab = createMaterialTopTabNavigator();

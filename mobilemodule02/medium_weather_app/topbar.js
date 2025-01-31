@@ -3,12 +3,14 @@ import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-nativ
 import FontAwesome from 'react-native-vector-icons/FontAwesome5';
 import { StyleSheet, View, TextInput, TouchableOpacity,Keyboard } from 'react-native';
 import { useMyContext } from './Context';
+import * as Location from 'expo-location';
 
 
-export default function TopBar() {
-    const {setGeolocation, golocation, searchQuery, setSearchQuery} = useMyContext();
+export default function TopBar(loc) {
+    const {setGeolocation, golocation, searchQuery, setSearchQuery,setLocation, location} = useMyContext();
     const[text, Settext] = useState("")
 
+    setLocation(loc)
     const onclick = () => {
         if(golocation)
             setGeolocation('')
