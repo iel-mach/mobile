@@ -1,6 +1,6 @@
 import { NavigationContainer } from '@react-navigation/native';
 import * as ScreenOrientation from 'expo-screen-orientation';
-import { MyProvider } from './Context';
+import { MyProvider, useMyContext } from './Context';
 import BottomBar from './bottombar';
 import TopBar from './topbar';
 import {useEffect, useState} from 'react'
@@ -9,6 +9,7 @@ import * as Location from 'expo-location';
 
 export default function App() {
   ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.ALL)
+  // const {setErrorMsg, setLocation, errorMsg, location} = useMyContext();
   // const [ll, setll] = useState(null);
   // const [llo, setllo] = useState(null);
   const [location, setLocation] = useState(null);
@@ -18,7 +19,7 @@ export default function App() {
       
       let { status } = await Location.requestForegroundPermissionsAsync();
       if (status !== 'granted') {
-        setErrorMsg('Permission to access location was denied');
+        setErrorMsg('geolocation is not available please enable it in you settings');
         return;
       }
 
@@ -28,10 +29,12 @@ export default function App() {
 
     getCurrentLocation();
   }, [])
+  console.log("app ===>",errorMsg);
+  console.log("apploc ===>",location);
   return (
     <MyProvider>
       <NavigationContainer>
-        <TopBar loc={location} />
+        <TopBar location={location} errorMsg={errorMsg}/>
         <BottomBar/>
       </NavigationContainer>
     </MyProvider>
