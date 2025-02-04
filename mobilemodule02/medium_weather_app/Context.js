@@ -8,13 +8,13 @@ export const useMyContext = () => {
 }
 
 export const MyProvider = ({ children }) => {
-    // const [golocation, setGeolocation] = useState(false)
+    const [data, setData] = useState(false)
     const [searchQuery, setSearchQuery] = useState('');
     const [location, setLocation] = useState(null);
     const [errorMsg, setErrorMsg] = useState(null);
   
     return (
-      <MyContext.Provider value={{setErrorMsg, errorMsg, searchQuery, setSearchQuery,setLocation, location}}>
+      <MyContext.Provider value={{data, setData, setErrorMsg, errorMsg, searchQuery, setSearchQuery,setLocation, location}}>
         {children}
       </MyContext.Provider>
     );

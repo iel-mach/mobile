@@ -1,70 +1,86 @@
 import react, {useState, useEffect} from 'react';
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 import FontAwesome from 'react-native-vector-icons/FontAwesome5';
-import { StyleSheet, View, TextInput, TouchableOpacity,Keyboard } from 'react-native';
+import { StyleSheet, View, Text, TextInput, TouchableOpacity,Keyboard, FlatList } from 'react-native';
 import { useMyContext } from './Context';
 import * as Location from 'expo-location';
 import axios from 'axios';
 
 
 export default function TopBar({location,errorMsg}) {
-    const {setErrorMsg, searchQuery, setSearchQuery,setLocation} = useMyContext();
+  const {data, setData, setErrorMsg, searchQuery, setSearchQuery,setLocation} = useMyContext();
+  const[text, Settext] = useState("")
 
-    const onclick = () => {
-
+  useEffect(() => {
+    let opt = {
+      method : 'GET',
+      url : 'https://geocoding-api.open-meteo.com/v1/search',
+      params: {
+        name: searchQuery,
+        count: 10,
+        language: 'en', 
+      },
     }
-    const Geolocation = () => {
-      async function getCurrentLocation() {
-        let { status } = await Location.requestForegroundPermissionsAsync();
-        if (status !== 'granted')
+    axios.request(opt).then((res) => 
+    {
+      if (res.data && res.data.results && res.data.results.length > 0)
+      {
+        // console.log("res ==>", res.data.results[0]);
+        setData(res?.data?.results)
+      }
+      else
+        console.log('No results found.');
+    }).catch((error) => {
+      console.log('Error fetching location data');
+      console.error(error);
+    })
+  },[searchQuery])
+  console.log("data ==>", data[0])
+  const onclick = () => {
+    
+  }
+  const Geolocation = () => {
+    async function getCurrentLocation() {
+      let { status } = await Location.requestForegroundPermissionsAsync();
+      if (status !== 'granted')
         {
           setLocation(null)
           if (errorMsg)
             setErrorMsg(errorMsg)
           else
-            setErrorMsg('geolocation is not available please enable it in you settings');        
-        }
+          setErrorMsg('geolocation is not available please enable it in you settings');        
+      }
+      else
+      {
+        setErrorMsg(null)
+        if (location)
+          setLocation(location)
         else
         {
-          setErrorMsg(null)
-          if (location)
-            setLocation(location)
-          else
-          {
-            let loc = await Location.getCurrentPositionAsync({});
-            setLocation(loc)
-          }
+          let loc = await Location.getCurrentPositionAsync({});
+          setLocation(loc)
         }
       }
-      getCurrentLocation()
     }
-    const {text, setText} = useState()
-    console.log(text);
-    const fetchLocationData = async () => {
-      try {
-        const response = await axios.get('https://geocoding-api.open-meteo.com/v1/search', {
-          params: {
-            q: text,  // Query for the location (city, etc.)
-            limit: 1,      // Limit the results to 1
-            language: 'en', // Set language preference (optional)
-          },
-        });
-        if (response.data && response.data.results && response.data.results.length > 0) {
-          console.log(response.data.results[0]); // Save the first result
-        } else {
-          seconsole.logtError('No results found.');
-        }
-      } catch (error) {
-        console.log('Error fetching location data');
-        console.error(error);
-      }
-    };
-    return (
+    getCurrentLocation()
+  }
+  return (
     <View style={styles.topbar}>
         <TouchableOpacity onPress={onclick}>
-            <FontAwesome style={styles.iconsearch} name="search" onChangeText={newText => setText(newText)} color={'black'} size={20}/>
+            <FontAwesome style={styles.iconsearch} name="search" color={'black'} size={20}/>
         </TouchableOpacity>
-          <TextInput style={styles.inputsearch} placeholder="Search location..."></TextInput>
+          <TextInput style={styles.inputsearch}  placeholder="Search location..." onChangeText={(text) => setSearchQuery(text)} ></TextInput>
+          <FlatList data={data} 
+          renderItem={({item, index}) => {
+            return(
+              <>
+                <View>
+                  <Text>{item?.name} {item?.country} {item?.admin1}</Text>
+                </View>
+              </>
+            )
+          }} 
+          />
         <TouchableOpacity onPress={() => Geolocation()}>
             <FontAwesome style={styles.iconlocation} name="location-arrow" color={'black'} size={20}/>
         </TouchableOpacity>

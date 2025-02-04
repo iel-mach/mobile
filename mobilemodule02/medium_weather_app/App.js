@@ -29,8 +29,6 @@ export default function App() {
 
     getCurrentLocation();
   }, [])
-  console.log("app ===>",errorMsg);
-  console.log("apploc ===>",location);
   return (
     <MyProvider>
       <NavigationContainer>
