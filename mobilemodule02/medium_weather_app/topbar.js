@@ -35,7 +35,7 @@ export default function TopBar({location,errorMsg}) {
       console.error(error);
     })
   },[searchQuery])
-  console.log("data ==>", data[0])
+  // console.log("data ==>", data[0])
   const onclick = () => {
     
   }
@@ -66,24 +66,26 @@ export default function TopBar({location,errorMsg}) {
   }
   return (
     <View style={styles.topbar}>
+      <View style={styles.top}>
         <TouchableOpacity onPress={onclick}>
             <FontAwesome style={styles.iconsearch} name="search" color={'black'} size={20}/>
         </TouchableOpacity>
           <TextInput style={styles.inputsearch}  placeholder="Search location..." onChangeText={(text) => setSearchQuery(text)} ></TextInput>
+        <TouchableOpacity onPress={() => Geolocation()}>
+            <FontAwesome style={styles.iconlocation} name="location-arrow" color={'black'} size={20}/>
+        </TouchableOpacity>
+        </View>
           <FlatList data={data} 
           renderItem={({item, index}) => {
             return(
               <>
-                <View>
-                  <Text>{item?.name} {item?.country} {item?.admin1}</Text>
+                <View style={styles.itemcontainer}>
+                  <Text style={styles.textsearch}>{item?.name} {item?.country} {item?.admin1}</Text>
                 </View>
               </>
             )
           }} 
           />
-        <TouchableOpacity onPress={() => Geolocation()}>
-            <FontAwesome style={styles.iconlocation} name="location-arrow" color={'black'} size={20}/>
-        </TouchableOpacity>
     </View>
 )
 }
@@ -93,9 +95,12 @@ const styles = StyleSheet.create({
     topbar: {
       backgroundColor: "#808080",
       paddingTop: hp(3),
+    },
+    top : {
       flexDirection: 'row',
       alignItems: 'center',
       justifyContent: 'center'
+
     },
     iconsearch: {
       marginLeft: wp(5),
@@ -107,5 +112,17 @@ const styles = StyleSheet.create({
     },
     iconlocation: {
       marginRight: wp(3),
+    },
+    itemcontainer: {
+      padding: 15,
+      borderBottomWidth: 1,
+      borderBottomColor: '#ddd',
+      backgroundColor: '#fff',
+    },
+    textsearch : {
+      fontSize: 16,
+      color: '#333',
+      fontWeight: 'bold',
+      // width: wp(50),
     },
   });
