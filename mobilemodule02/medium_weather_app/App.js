@@ -9,9 +9,6 @@ import * as Location from 'expo-location';
 
 export default function App() {
   ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.ALL)
-  // const {setErrorMsg, setLocation, errorMsg, location} = useMyContext();
-  // const [ll, setll] = useState(null);
-  // const [llo, setllo] = useState(null);
   const [location, setLocation] = useState(null);
   const [errorMsg, setErrorMsg] = useState(null);
   useEffect(() => {

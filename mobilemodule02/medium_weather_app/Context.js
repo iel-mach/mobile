@@ -12,9 +12,10 @@ export const MyProvider = ({ children }) => {
     const [searchQuery, setSearchQuery] = useState('');
     const [location, setLocation] = useState(null);
     const [errorMsg, setErrorMsg] = useState(null);
+    const [showContent, setShowContent] = useState(true);
   
     return (
-      <MyContext.Provider value={{data, setData, setErrorMsg, errorMsg, searchQuery, setSearchQuery,setLocation, location}}>
+      <MyContext.Provider value={{setShowContent, showContent, data, setData, setErrorMsg, errorMsg, searchQuery, setSearchQuery,setLocation, location}}>
         {children}
       </MyContext.Provider>
     );

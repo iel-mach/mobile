@@ -2,20 +2,23 @@ import { StyleSheet, Text, View } from 'react-native';
 import { useMyContext } from '../Context';
 
 export default function CurrentlyScreen() {
-    const {searchQuery,  location,errorMsg} = useMyContext()
+    const {showContent, searchQuery,  location,errorMsg} = useMyContext()
     return(
         <View style={styles.container}>
-            {errorMsg ? ( 
+            {showContent ? (
+             errorMsg ? ( 
                 <Text style={styles.error}>{errorMsg}</Text>
             ) : (
                 <Text style={styles.textcontainer}>Currently</Text>
-            )}
-            {location ? (
-                <Text style={styles.coords}>{location.coords.latitude} {location.coords.longitude}</Text>
-                ) : (
-                <Text style={styles.coords}></Text>
-            )}
+            )
+            // location ? (
+            //     <Text style={styles.coords}>{location.coords.latitude} {location.coords.longitude}</Text>
+            //     ) : (
+            //     <Text style={styles.coords}></Text>
+            ) : (<></>)}
         </View>
+        // <View>
+        // </View>
     )
 }
 

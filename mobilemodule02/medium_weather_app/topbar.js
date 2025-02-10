@@ -8,7 +8,7 @@ import axios from 'axios';
 
 
 export default function TopBar({location,errorMsg}) {
-  const {data, setData, setErrorMsg, searchQuery, setSearchQuery,setLocation} = useMyContext();
+  const {setShowContent, data, setData, setErrorMsg, searchQuery, setSearchQuery,setLocation} = useMyContext();
   const[text, Settext] = useState("")
 
   useEffect(() => {
@@ -25,17 +25,20 @@ export default function TopBar({location,errorMsg}) {
     {
       if (res.data && res.data.results && res.data.results.length > 0)
       {
-        // console.log("res ==>", res.data.results[0]);
         setData(res?.data?.results)
+        setShowContent(false)
       }
       else
-        console.log('No results found.');
+      {
+        setData("")
+        if (!searchQuery)
+          setShowContent(true)
+      }
     }).catch((error) => {
       console.log('Error fetching location data');
       console.error(error);
     })
   },[searchQuery])
-  // console.log("data ==>", data[0])
   const onclick = () => {
     
   }
@@ -74,8 +77,20 @@ export default function TopBar({location,errorMsg}) {
         <TouchableOpacity onPress={() => Geolocation()}>
             <FontAwesome style={styles.iconlocation} name="location-arrow" color={'black'} size={20}/>
         </TouchableOpacity>
-        </View>
-          <FlatList data={data} 
+        </View >
+          <FlatList
+          ListEmptyComponent={() => (
+            <View>
+              {searchQuery ? (
+                <View style={styles.emptyListcontainer}>
+                <Text style={styles.emptyListText}>No City found.</Text>
+                </View>
+              ) : ( 
+                <></>
+              )}
+            </View>
+          )}
+          data={data} 
           renderItem={({item, index}) => {
             return(
               <>
@@ -93,6 +108,7 @@ export default function TopBar({location,errorMsg}) {
 
 const styles = StyleSheet.create({
     topbar: {
+      // flex: 3,
       backgroundColor: "#808080",
       paddingTop: hp(3),
     },
@@ -125,4 +141,17 @@ const styles = StyleSheet.create({
       fontWeight: 'bold',
       // width: wp(50),
     },
+    emptyListText : {
+      fontSize: 16,
+      color: '#333',
+      fontWeight: 'bold',
+    },
+    emptyListcontainer: {
+      padding: 15,
+      borderBottomWidth: 1,
+      borderBottomColor: '#ddd',
+      backgroundColor: '#fff',
+      alignItems: 'center',
+      justifyContent: 'center'
+    }
   });
