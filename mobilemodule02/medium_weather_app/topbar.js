@@ -1,4 +1,4 @@
-import react, {useState, useEffect} from 'react';
+import react, { useEffect} from 'react';
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 import FontAwesome from 'react-native-vector-icons/FontAwesome5';
 import { StyleSheet, View, Text, TextInput, TouchableOpacity,Keyboard, FlatList } from 'react-native';
@@ -8,8 +8,7 @@ import axios from 'axios';
 
 
 export default function TopBar({location,errorMsg}) {
-  const {setShowContent, data, setData, setErrorMsg, searchQuery, setSearchQuery,setLocation} = useMyContext();
-  const[text, Settext] = useState("")
+  const {setCitycoords, setShowContent, data, setData, setErrorMsg, searchQuery, setSearchQuery,setLocation} = useMyContext();
 
   useEffect(() => {
     let opt = {
@@ -26,7 +25,6 @@ export default function TopBar({location,errorMsg}) {
       if (res.data && res.data.results && res.data.results.length > 0)
       {
         setData(res?.data?.results)
-        setShowContent(false)
       }
       else
       {
@@ -39,9 +37,6 @@ export default function TopBar({location,errorMsg}) {
       console.error(error);
     })
   },[searchQuery])
-  const onclick = () => {
-    
-  }
   const Geolocation = () => {
     async function getCurrentLocation() {
       let { status } = await Location.requestForegroundPermissionsAsync();
@@ -67,13 +62,29 @@ export default function TopBar({location,errorMsg}) {
     }
     getCurrentLocation()
   }
+  
+  const setcityitem = (item) => {
+    setShowContent(true)
+    setSearchQuery("")
+    setCitycoords(item)
+    // console.log(item)
+  }
+
+  const onclick = () => {
+        Keyboard.dismiss()
+  }
+  const onchange = (text) => {
+    setSearchQuery(text);
+    setShowContent(false);
+  }
+
   return (
     <View style={styles.topbar}>
       <View style={styles.top}>
         <TouchableOpacity onPress={onclick}>
             <FontAwesome style={styles.iconsearch} name="search" color={'black'} size={20}/>
         </TouchableOpacity>
-          <TextInput style={styles.inputsearch}  placeholder="Search location..." onChangeText={(text) => setSearchQuery(text)} ></TextInput>
+          <TextInput style={styles.inputsearch} value={searchQuery} placeholder="Search location..." onChangeText={(text) => onchange(text)} onSubmitEditing={() => onclick()} ></TextInput>
         <TouchableOpacity onPress={() => Geolocation()}>
             <FontAwesome style={styles.iconlocation} name="location-arrow" color={'black'} size={20}/>
         </TouchableOpacity>
@@ -90,12 +101,14 @@ export default function TopBar({location,errorMsg}) {
               )}
             </View>
           )}
-          data={data} 
+          data={data}
           renderItem={({item, index}) => {
             return(
               <>
                 <View style={styles.itemcontainer}>
-                  <Text style={styles.textsearch}>{item?.name} {item?.country} {item?.admin1}</Text>
+                  <TouchableOpacity onPress={() => setcityitem(item)}>
+                    <Text style={styles.textsearch}>{item?.name} {item?.admin1} {item?.country}</Text>
+                  </TouchableOpacity>
                 </View>
               </>
             )

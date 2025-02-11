@@ -3,19 +3,20 @@ import { useMyContext } from '../Context';
 
 
 export default function TodayScreen() {
-    const {searchQuery,  location,errorMsg} = useMyContext()
+    const {citycoords, showContent, errorMsg} = useMyContext()
     return(
         <View style={styles.container}>
-            {errorMsg ? ( 
+            {showContent ? (
+             errorMsg ? ( 
                 <Text style={styles.error}>{errorMsg}</Text>
             ) : (
-                <Text style={styles.textcontainer}>Today</Text>
-            )}
-            {location ? (
-                <Text style={styles.coords}>{location.coords.latitude} {location.coords.longitude}</Text>
-                ) : (
-                <Text style={styles.coords}></Text>
-            )}
+                <View>
+                <Text style={styles.textcontainer}>{citycoords.name}</Text>
+                <Text style={styles.textcontainer}>{citycoords.admin1}</Text>
+                <Text style={styles.textcontainer}>{citycoords.country}</Text>
+                </View>
+            )
+            ) : (<></>)}
         </View>
     )
   }
@@ -25,11 +26,13 @@ const styles = StyleSheet.create({
       flex: 1,
       backgroundColor: '#fff',
       alignItems: 'center',
-      justifyContent: 'center',
+      paddingTop: 30,
+    //   justifyContent: 'center',
     },
     textcontainer: {
-        fontSize: 50,
-        fontWeight: "800",
+        fontSize: 20,
+        // fontWeight: "800",
+        textAlign: 'center',
     },
     coords : {
         fontSize: 25,

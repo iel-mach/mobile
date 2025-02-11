@@ -2,42 +2,41 @@ import { StyleSheet, Text, View } from 'react-native';
 import { useMyContext } from '../Context';
 
 export default function WeeklyScreen() {
-    const {searchQuery,  location,errorMsg} = useMyContext()
+    const {citycoords, showContent, errorMsg} = useMyContext()
     return(
         <View style={styles.container}>
-            {errorMsg ? ( 
+            {showContent ? (
+             errorMsg ? ( 
                 <Text style={styles.error}>{errorMsg}</Text>
             ) : (
-                <Text style={styles.textcontainer}>Weekly</Text>
-            )}
-            {location ? (
-                <Text style={styles.coords}>{location.coords.latitude} {location.coords.longitude}</Text>
-                ) : (
-                <Text style={styles.coords}></Text>
-            )}
+                <View>
+                <Text style={styles.textcontainer}>{citycoords.name}</Text>
+                <Text style={styles.textcontainer}>{citycoords.admin1}</Text>
+                <Text style={styles.textcontainer}>{citycoords.country}</Text>
+                </View>
+            )
+            ) : (<></>)}
         </View>
     )
 }
 
 const styles = StyleSheet.create({
     container: {
-      flex: 1,
-      backgroundColor: '#fff',
-      alignItems: 'center',
-      justifyContent: 'center',
-    },
-    textcontainer: {
-        fontSize: 50,
-        fontWeight: "800",
-    },
-    coords: {
-        fontSize: 25,
-        fontWeight: "800",
-    },
-    error : {
-        fontSize: 20,
-        fontWeight: "800",
-        color: "red",
-        textAlign: 'center',
-    }
+        flex: 1,
+        backgroundColor: '#fff',
+        alignItems: 'center',
+        paddingTop: 30,
+      //   justifyContent: 'center',
+      },
+      textcontainer: {
+          fontSize: 20,
+          // fontWeight: "800",
+          textAlign: 'center',
+      },
+      error : {
+          fontSize: 20,
+          fontWeight: "800",
+          color: "red",
+          textAlign: 'center',
+      }
 });

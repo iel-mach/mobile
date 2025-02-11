@@ -1,6 +1,6 @@
 import { NavigationContainer } from '@react-navigation/native';
 import * as ScreenOrientation from 'expo-screen-orientation';
-import { MyProvider, useMyContext } from './Context';
+import { MyProvider } from './Context';
 import BottomBar from './bottombar';
 import TopBar from './topbar';
 import {useEffect, useState} from 'react'
@@ -22,9 +22,12 @@ export default function App() {
 
       let location = await Location.getCurrentPositionAsync({});
       setLocation(location)
+      // console.log('Weather data:', location);
     }
-
+    
     getCurrentLocation();
+
+    // console.log(location.coords.latitude);
   }, [])
   return (
     <MyProvider>
