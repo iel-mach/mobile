@@ -4,70 +4,31 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome5';
 import { StyleSheet, View, Text, TextInput, TouchableOpacity,Keyboard, FlatList } from 'react-native';
 import { useMyContext } from './Context';
 import * as Location from 'expo-location';
+import {getcities} from './api/api.js';
 import axios from 'axios';
 
 
-export default function TopBar({location,errorMsg}) {
-  const {setCitycoords, setShowContent, data, setData, setErrorMsg, searchQuery, setSearchQuery,setLocation} = useMyContext();
+export default function TopBar() {
+  const {mylocation, getMyLocation, setCitycoords, setShowContent, data, setData, setErrorMsg, searchQuery, setSearchQuery,setLocation} = useMyContext();
 
-  useEffect(() => {
-    let opt = {
-      method : 'GET',
-      url : 'https://geocoding-api.open-meteo.com/v1/search',
-      params: {
-        name: searchQuery,
-        count: 10,
-        language: 'en', 
-      },
-    }
-    axios.request(opt).then((res) => 
-    {
-      if (res.data && res.data.results && res.data.results.length > 0)
-      {
-        setData(res?.data?.results)
-      }
-      else
-      {
-        setData("")
-        if (!searchQuery)
-          setShowContent(true)
-      }
-    }).catch((error) => {
-      console.log('Error fetching location data');
-      console.error(error);
-    })
-  },[searchQuery])
+  getcities(searchQuery);
+
   const Geolocation = () => {
-    async function getCurrentLocation() {
-      let { status } = await Location.requestForegroundPermissionsAsync();
-      if (status !== 'granted')
-        {
-          setLocation(null)
-          if (errorMsg)
-            setErrorMsg(errorMsg)
-          else
-          setErrorMsg('geolocation is not available please enable it in you settings');        
-      }
-      else
-      {
-        setErrorMsg(null)
-        if (location)
-          setLocation(location)
-        else
-        {
-          let loc = await Location.getCurrentPositionAsync({});
-          setLocation(loc)
-        }
-      }
-    }
-    getCurrentLocation()
+    getMyLocation()
+    // console.log(mylocation)
+    setCitycoords(mylocation)
   }
   
   const setcityitem = (item) => {
     setShowContent(true)
     setSearchQuery("")
-    setCitycoords(item)
-    // console.log(item)
+    setCitycoords({
+      lt: item.latitude,
+      lg: item.longitude,
+      city: item.name,
+      country : item.country,
+      region : item.admin1,
+    })
   }
 
   const onclick = () => {
