@@ -9,18 +9,20 @@ import axios from 'axios';
 
 
 export default function TopBar() {
-  const {mylocation, getMyLocation, setCitycoords, setShowContent, data, setData, setErrorMsg, searchQuery, setSearchQuery,setLocation} = useMyContext();
+  const {getMyCoords,citycoords , mylocation, getMyLocation, setCitycoords, setShowContent, data, setData, setErrorMsg, searchQuery, setSearchQuery} = useMyContext();
 
   getcities(searchQuery);
 
   const Geolocation = () => {
-    getMyLocation()
-    // console.log(mylocation)
-    setCitycoords(mylocation)
+    setSearchQuery("")
+    setErrorMsg("");
+    if(!mylocation)
+      getMyLocation()
+    getMyCoords();
   }
   
   const setcityitem = (item) => {
-    setShowContent(true)
+    console.log("item ==> ", item);
     setSearchQuery("")
     setCitycoords({
       lt: item.latitude,
@@ -28,11 +30,19 @@ export default function TopBar() {
       city: item.name,
       country : item.country,
       region : item.admin1,
+      timezone : item.timezone,
     })
+    // console.log("Citycoords ==> ", citycoords);
   }
 
   const onclick = () => {
-        Keyboard.dismiss()
+    Keyboard.dismiss()
+    setShowContent(true);
+    if(!data)
+    {
+      setSearchQuery("");
+      setErrorMsg("could not find any result for the supplied address or coordinates");
+    }
   }
   const onchange = (text) => {
     setSearchQuery(text);
