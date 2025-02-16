@@ -20,9 +20,9 @@ export default function CurrentlyScreen() {
                 <Text style={styles.textcontainer}>{citycoords.country}</Text>
                 {weather ? (
                   <View>
-                    <Text style={styles.textcontainer}>{weather.current.temperature_2m} {weather.current_units.temperature_2m}</Text>
-                    <Text style={styles.textcontainer}>{getWeatherDescription(weather.current.weather_code)}</Text>
-                    <Text style={styles.textcontainer}>{weather.current.wind_speed_10m} {weather.current_units.wind_speed_10m}</Text>
+                    <Text style={styles.textcontainer}>{weather?.current?.temperature_2m} {weather?.current_units?.temperature_2m}</Text>
+                    <Text style={styles.textcontainer}>{getWeatherDescription(weather?.current?.weather_code)}</Text>
+                    <Text style={styles.textcontainer}>{weather?.current?.wind_speed_10m} {weather?.current_units?.wind_speed_10m}</Text>
                   </View>
                 ) : (<></>)
                 }

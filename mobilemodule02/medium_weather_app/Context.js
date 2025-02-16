@@ -17,6 +17,7 @@ export const MyProvider = ({ children }) => {
     const [showContent, setShowContent] = useState(true);
     const [citycoords, setCitycoords] = useState("")
     const [weather, setWeather] = useState("");
+    const [weatherhourly, setWeatHerhourly] = useState("");
 
 
     async function getMyLocation() {
@@ -53,22 +54,34 @@ export const MyProvider = ({ children }) => {
       try {
         // Fetching the data from the API
         const response = await fetch(
-          
-          `https://api.open-meteo.com/v1/forecast?latitude=${citycoords.lt}&longitude=${citycoords.lg}&current=temperature_2m,weather_code,wind_speed_10m&hourly=temperature_2m,weather_code,wind_speed_10m&daily=temperature_2m_max,temperature_2m_min&forecast_days=1`
+          `https://api.open-meteo.com/v1/forecast?latitude=${citycoords.lt}&longitude=${citycoords.lg}&current=temperature_2m,weather_code,wind_speed_10m&daily=weather_code,temperature_2m_max,temperature_2m_min&timezone=${citycoords.timezone}`
         );
         if (!response.ok) {
           throw new Error('Failed to fetch data');
         }
         const data = await response.json();
-        // console.log("lt ==> ", data)
         setWeather(data);
-          // console.log('Weather data:', data);
-          // console.log('Weather time:', data.hourly.time[0]);
   
         }catch (err) {
           setError(err.message);
         }
-  }
+    }
+
+    const WeatherDatahourly = async () => {
+      try {
+          const response = await fetch(
+            `https://api.open-meteo.com/v1/forecast?latitude=${citycoords.lt}&longitude=${citycoords.lg}&hourly=temperature_2m,wind_speed_10m&forecast_days=1`
+          );
+          if (!response.ok) {
+            throw new Error('Failed to fetch data');
+          }
+          const data = await response.json();
+          setWeatHerhourly(data);
+        }
+        catch (err) {
+          setError(err.message);
+        }
+    }
 
     useEffect(() => {
       getMyLocation();
@@ -80,13 +93,12 @@ export const MyProvider = ({ children }) => {
     
     useEffect (() => {
       WeatherData();
-      // console.log("hola");
+      WeatherDatahourly();
       setShowContent(true);
-      // getMyCoords();
     }, [citycoords])
   
     return (
-      <MyContext.Provider value={{getMyCoords, setWeather, weather , getMyLocation, citycoords, setCitycoords, setShowContent, showContent, data, setData, setErrorMsg, errorMsg, searchQuery, setSearchQuery,setMyocation, mylocation}}>
+      <MyContext.Provider value={{weatherhourly, getMyCoords, setWeather, weather , getMyLocation, citycoords, setCitycoords, setShowContent, showContent, data, setData, setErrorMsg, errorMsg, searchQuery, setSearchQuery,setMyocation, mylocation}}>
         {children}
       </MyContext.Provider>
     );
