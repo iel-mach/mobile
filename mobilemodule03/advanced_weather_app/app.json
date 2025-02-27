@@ -1,0 +1,34 @@
+{
+  "expo": {
+    "name": "weather_app",
+    "slug": "weather_app",
+    "version": "1.0.0",
+    "plugins": [
+      [
+        "expo-location",
+        {
+          "locationAlwaysAndWhenInUsePermission": "Allow app to use your location."
+        }
+      ]
+    ],
+    "orientation": "portrait",
+    "userInterfaceStyle": "light",
+    "newArchEnabled": true,
+    "splash": {
+      "image": "./assets/splash-icon.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "permissions": ["ACCESS_FINE_LOCATION"],
+      "adaptiveIcon": {
+        "backgroundColor": "#ffffff"
+      }
+    },
+    "web": {
+    }
+  }
+}
