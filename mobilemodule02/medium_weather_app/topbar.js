@@ -9,11 +9,12 @@ import axios from 'axios';
 
 
 export default function TopBar() {
-  const {getMyCoords,citycoords , mylocation, getMyLocation, setCitycoords, setShowContent, data, setData, setErrorMsg, searchQuery, setSearchQuery} = useMyContext();
+  const {getMyCoords , mylocation, getMyLocation, setCitycoords, setShowContent, data, setErrorMsg, searchQuery, setSearchQuery} = useMyContext();
 
   getcities(searchQuery);
 
   const Geolocation = () => {
+    setCitycoords("")
     setSearchQuery("")
     setErrorMsg("");
     if(!mylocation)
@@ -22,7 +23,6 @@ export default function TopBar() {
   }
   
   const setcityitem = (item) => {
-    console.log("item ==> ", item);
     setSearchQuery("")
     setCitycoords({
       lt: item.latitude,
@@ -32,7 +32,6 @@ export default function TopBar() {
       region : item.admin1,
       timezone : item.timezone,
     })
-    // console.log("Citycoords ==> ", citycoords);
   }
 
   const onclick = () => {
@@ -92,7 +91,6 @@ export default function TopBar() {
 
 const styles = StyleSheet.create({
     topbar: {
-      // flex: 3,
       backgroundColor: "#808080",
       paddingTop: hp(3),
     },
@@ -123,7 +121,6 @@ const styles = StyleSheet.create({
       fontSize: 16,
       color: '#333',
       fontWeight: 'bold',
-      // width: wp(50),
     },
     emptyListText : {
       fontSize: 16,

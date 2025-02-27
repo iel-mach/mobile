@@ -39,7 +39,6 @@ export const MyProvider = ({ children }) => {
         longitude : mylocation.lg,
         latitude : mylocation.lt,
       });
-      // console.log("reversecode ==> ", reversecode)
       setCitycoords({
         lt: mylocation.lt,
         lg: mylocation.lg,
@@ -52,12 +51,11 @@ export const MyProvider = ({ children }) => {
 
     const WeatherData = async () => {
       try {
-        // Fetching the data from the API
         const response = await fetch(
           `https://api.open-meteo.com/v1/forecast?latitude=${citycoords.lt}&longitude=${citycoords.lg}&current=temperature_2m,weather_code,wind_speed_10m&daily=weather_code,temperature_2m_max,temperature_2m_min&timezone=${citycoords.timezone}`
         );
         if (!response.ok) {
-          throw new Error('Failed to fetch data');
+          throw new Error('The service connection is lost,  please check your internet connection or try again later');
         }
         const data = await response.json();
         setWeather(data);
@@ -73,7 +71,7 @@ export const MyProvider = ({ children }) => {
             `https://api.open-meteo.com/v1/forecast?latitude=${citycoords.lt}&longitude=${citycoords.lg}&hourly=temperature_2m,wind_speed_10m&forecast_days=1`
           );
           if (!response.ok) {
-            throw new Error('Failed to fetch data');
+            throw new Error('The service connection is lost,  please check your internet connection or try again later');
           }
           const data = await response.json();
           setWeatHerhourly(data);

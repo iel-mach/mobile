@@ -1,6 +1,7 @@
 import { StyleSheet, Text, View, FlatList } from 'react-native';
 import { useMyContext } from '../Context';
 import {getWeatherDescription} from '../utils/utils'
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 
 export default function WeeklyScreen() {
     const {citycoords, showContent, errorMsg, weather} = useMyContext()
@@ -73,9 +74,9 @@ const styles = StyleSheet.create({
     weathercontainer : {
         flex: 1,
         flexDirection: "row",
-        gap : 30,
-        marginBottom: 20,
-        marginTop : 10,
+        gap : wp(10),
+        marginBottom: wp(2),
+        marginTop : wp(3),
     },
     weathertext : {
         fontSize: 16,

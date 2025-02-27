@@ -1,5 +1,6 @@
 import { StyleSheet, Text, View, FlatList, Item } from 'react-native';
 import { useMyContext } from '../Context';
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 
 
 export default function TodayScreen() {
@@ -21,6 +22,7 @@ export default function TodayScreen() {
                     renderItem={({item, index}) => {
                         return(
                             <>
+                            {/* {console.log(item)} */}
                             <View style={styles.weathercontainer}>
                                 <Text style={styles.weathertext}>{item?.split("T")[1]}</Text>
                                 <Text style={styles.weathertext}>{weatherhourly?.hourly?.temperature_2m[index]} {weatherhourly?.hourly_units?.temperature_2m}</Text>
@@ -42,10 +44,10 @@ const styles = StyleSheet.create({
     container: {
       flex: 1,
       backgroundColor: '#fff',
+      alignItems: 'center',
     },
     showContent : {
-        alignItems: 'center',
-        paddingTop: 20,
+        paddingTop: 15,
     },
     text : {
         fontSize: 20,
@@ -54,7 +56,6 @@ const styles = StyleSheet.create({
     showerror : {
         width : '100%',
         justifyContent: 'center',
-        alignItems: 'center',
         position: 'absolute',
         top: 0, 
         left: 0, 
@@ -70,13 +71,13 @@ const styles = StyleSheet.create({
     weathercontainer : {
         flex: 1,
         flexDirection: "row",
-        gap : 80,
+        gap : wp(25),
         justifyContent: "space-around",
-        marginBottom: 10,
-        marginTop : 10,
+        marginBottom: wp(2),
+        marginTop : wp(3),
     },
     weathertext : {
         fontSize: 16,
-        // textAlign: 'center',
+        // flexGrow: 1,
     },
 });
