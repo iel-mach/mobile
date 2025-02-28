@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, FlatList, Item } from 'react-native';
+import { StyleSheet, Text, View, FlatList, ImageBackground } from 'react-native';
 import { useMyContext } from '../Context';
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 
@@ -43,13 +43,13 @@ export default function TodayScreen() {
 const styles = StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: '#fff',
       alignItems: 'center',
     },
     showContent : {
         paddingTop: 15,
     },
     text : {
+        color: "gray",
         fontSize: 20,
         textAlign: 'center',
     },
@@ -78,6 +78,7 @@ const styles = StyleSheet.create({
     },
     weathertext : {
         fontSize: 16,
+        color: "gray",
         // flexGrow: 1,
     },
 });

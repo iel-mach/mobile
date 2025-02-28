@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, FlatList } from 'react-native';
+import { StyleSheet, Text, View, FlatList, ImageBackground } from 'react-native';
 import { useMyContext } from '../Context';
 import {getWeatherDescription} from '../utils/utils'
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
@@ -6,6 +6,10 @@ import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-nativ
 export default function WeeklyScreen() {
     const {citycoords, showContent, errorMsg, weather} = useMyContext()
     return(
+        <ImageBackground
+                        source={require('../background.jpg')}
+                        style={styles.background}
+                      >
         <View style={styles.container}>
             {showContent ? (
                 errorMsg ? ( 
@@ -37,13 +41,19 @@ export default function WeeklyScreen() {
                 )
             ) : (<></>)}
         </View>
+        </ImageBackground>
     )
 }
 
 const styles = StyleSheet.create({
+    background: {
+        flex: 1, // Make sure the background image covers the entire screen
+        justifyContent: 'center',
+        alignItems: 'center',
+      },
     container: {
         flex: 1,
-        backgroundColor: '#fff',
+        // backgroundColor: '#fff',
         alignItems: 'center',
         justifyContent: 'center',
     },
@@ -52,6 +62,7 @@ const styles = StyleSheet.create({
         paddingTop: 20,
     },
     text : {
+        color: "gray",
         fontSize: 20,
         textAlign: 'center',
     },
@@ -79,6 +90,7 @@ const styles = StyleSheet.create({
         marginTop : wp(3),
     },
     weathertext : {
+        color: "gray",
         fontSize: 16,
     },
 });

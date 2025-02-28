@@ -52,11 +52,11 @@ export default function TopBar() {
     <View style={styles.topbar}>
       <View style={styles.top}>
         <TouchableOpacity onPress={onclick}>
-            <FontAwesome style={styles.iconsearch} name="search" color={'black'} size={20}/>
+            <FontAwesome style={styles.iconsearch} name="search" color={'gray'} size={20}/>
         </TouchableOpacity>
-          <TextInput style={styles.inputsearch} value={searchQuery} placeholder="Search location..." onChangeText={(text) => onchange(text)} onSubmitEditing={() => onclick()} ></TextInput>
+          <TextInput style={styles.inputsearch} value={searchQuery} placeholderTextColor={'gray'} placeholder="Search location..." onChangeText={(text) => onchange(text)} onSubmitEditing={() => onclick()} ></TextInput>
         <TouchableOpacity onPress={() => Geolocation()}>
-            <FontAwesome style={styles.iconlocation} name="location-arrow" color={'black'} size={20}/>
+            <FontAwesome style={styles.iconlocation} name="location-arrow" color={'gray'} size={20}/>
         </TouchableOpacity>
         </View >
           <FlatList
@@ -76,8 +76,10 @@ export default function TopBar() {
             return(
               <>
                 <View style={styles.itemcontainer}>
-                  <TouchableOpacity onPress={() => setcityitem(item)}>
-                    <Text style={styles.textsearch}>{item?.name} {item?.admin1} {item?.country}</Text>
+                  <TouchableOpacity onPress={() => setcityitem(item)} style={styles.touchable}>
+                    <Text style={styles.citysearch}>{item?.name}</Text>
+                    <Text style={styles.textsearch}>{item?.admin1}</Text>
+                    <Text style={styles.textsearch}>{item?.country}</Text>
                   </TouchableOpacity>
                 </View>
               </>
@@ -91,7 +93,7 @@ export default function TopBar() {
 
 const styles = StyleSheet.create({
     topbar: {
-      backgroundColor: "#808080",
+      backgroundColor: "transparent",
       paddingTop: hp(3),
     },
     top : {
@@ -105,6 +107,7 @@ const styles = StyleSheet.create({
       marginRight: wp(3),
     },
     inputsearch : {
+      color: "gray",
       width: wp(50),
       fontSize: 15,
     },
@@ -112,26 +115,40 @@ const styles = StyleSheet.create({
       marginRight: wp(3),
     },
     itemcontainer: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      // justifyContent: 'center',
       padding: 15,
       borderBottomWidth: 1,
-      borderBottomColor: '#ddd',
-      backgroundColor: '#fff',
+      borderBottomColor: 'gray',
+      backgroundColor: 'transparent',
+    },
+    touchable: {
+      flexDirection: 'row', // Ensure that text elements are aligned in a row
+      alignItems: 'center', // Aligns text vertically if needed
+    },
+    citysearch: {
+      marginRight: 10,
+      color: 'gray',
+      fontWeight: 'bold',
+      fontSize: 16,
     },
     textsearch : {
+      marginRight: 10,
       fontSize: 16,
-      color: '#333',
-      fontWeight: 'bold',
+      color: 'gray',
+      // fontWeight: 'bold',
     },
     emptyListText : {
       fontSize: 16,
-      color: '#333',
+      color: 'gray',
       fontWeight: 'bold',
     },
     emptyListcontainer: {
       padding: 15,
       borderBottomWidth: 1,
-      borderBottomColor: '#ddd',
-      backgroundColor: '#fff',
+      borderBottomColor: 'gray',
+      backgroundColor: 'transparent',
       alignItems: 'center',
       justifyContent: 'center'
     }

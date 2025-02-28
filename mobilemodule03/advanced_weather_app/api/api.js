@@ -9,7 +9,7 @@ export const getcities =  (searchQuery) => {
         url : 'https://geocoding-api.open-meteo.com/v1/search',
         params: {
           name: searchQuery,
-          count: 10,
+          count: 5,
           language: 'en', 
         },
       }

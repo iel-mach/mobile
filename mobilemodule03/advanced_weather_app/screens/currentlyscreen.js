@@ -8,15 +8,10 @@ import { BlurView } from '@react-native-community/blur';
 export default function CurrentlyScreen() {
     const {citycoords, showContent, errorMsg, weather} = useMyContext()
     return(
-      <ImageBackground
-        source={require('../background.jpg')}
-        style={styles.background}
-      >
-        <BlurView
-        style={styles.absolute}
-        blurType="light"
-        blurAmount={10}
-      />
+      // <ImageBackground
+      //   source={require('../background.jpg')}
+      //   style={styles.background}
+      // >
         <View style={styles.container}>
             {showContent ? (
              errorMsg ? (
@@ -40,29 +35,19 @@ export default function CurrentlyScreen() {
             )
             ) : (<></>)}
         </View>
-      </ImageBackground>
     )
 }
 
 const styles = StyleSheet.create({
-  background: {
-    flex: 1, // Make sure the background image covers the entire screen
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  absolute: {
-    ...StyleSheet.absoluteFillObject, // Make the blur cover the whole screen
-  },
   container: {
-    flex: 1,
-    // backgroundColor: '#fff',
-    alignItems: 'center',
+    // flex: 1,
+    // alignItems: 'center',
   },
   showContent : {
-    // alignItems: 'center',
     paddingTop: 30,
   },
   textcontainer: {
+    color: "gray",
     fontSize: 20,
     textAlign: 'center',
   },
