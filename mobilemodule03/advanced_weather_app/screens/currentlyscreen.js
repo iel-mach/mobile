@@ -1,12 +1,22 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, ImageBackground } from 'react-native';
 import {getWeatherDescription} from '../utils/utils.js'
 import { useMyContext } from '../Context';
-import react, { useEffect, useState} from 'react';
-import {WeatherData} from '../api/api.js'
+import { BlurView } from '@react-native-community/blur';
+// import react, { useEffect, useState} from 'react';
+// import {WeatherData} from '../api/api.js'
 
 export default function CurrentlyScreen() {
     const {citycoords, showContent, errorMsg, weather} = useMyContext()
     return(
+      <ImageBackground
+        source={require('../background.jpg')}
+        style={styles.background}
+      >
+        <BlurView
+        style={styles.absolute}
+        blurType="light"
+        blurAmount={10}
+      />
         <View style={styles.container}>
             {showContent ? (
              errorMsg ? (
@@ -30,13 +40,22 @@ export default function CurrentlyScreen() {
             )
             ) : (<></>)}
         </View>
+      </ImageBackground>
     )
 }
 
 const styles = StyleSheet.create({
+  background: {
+    flex: 1, // Make sure the background image covers the entire screen
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  absolute: {
+    ...StyleSheet.absoluteFillObject, // Make the blur cover the whole screen
+  },
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    // backgroundColor: '#fff',
     alignItems: 'center',
   },
   showContent : {
