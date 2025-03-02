@@ -126,6 +126,7 @@ const styles = StyleSheet.create({
     touchable: {
       flexDirection: 'row', // Ensure that text elements are aligned in a row
       alignItems: 'center', // Aligns text vertically if needed
+      // justifyContent: 'center',
     },
     citysearch: {
       marginRight: 10,

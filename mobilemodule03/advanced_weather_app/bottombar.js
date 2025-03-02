@@ -3,17 +3,18 @@ import { createMaterialTopTabNavigator } from '@react-navigation/material-top-ta
 import CurrentlyScreen from './screens/currentlyscreen';
 import TodayScreen from './screens/todayscreen';
 import WeeklyScreen from './screens/weeklyscreen';
-import {StyleSheet, ImageBackground } from 'react-native';
+import {StyleSheet, ImageBackground, View } from 'react-native';
 
 
 const Tab = createMaterialTopTabNavigator();
 
 export default function BottomBar() {
     return (
-        <ImageBackground
-                        source={require('./background.jpg')}
-                        style={styles.background}
-              >
+        // <ImageBackground
+        //                 source={require('./background.jpg')}
+        //                 style={styles.background}
+        //       >
+        // <View style={styles.bottombar}>
         <Tab.Navigator
         initialRouteName="Currently"
         tabBarPosition="bottom"
@@ -46,15 +47,15 @@ export default function BottomBar() {
             )
             }} />
         </Tab.Navigator>
-        </ImageBackground>
     )
 }
 
-const styles = StyleSheet.create({
-  background: {
-    flex: 1,
-    // paddingTop: 10, // Make sure the background image covers the entire screen
-    // justifyContent: 'center',
-    // alignItems: 'center',
-  },
-});
+// const styles = StyleSheet.create({
+//     bottombar: {
+//     flex: 1,
+//     backgroundColor: "transparent",
+//     // paddingTop: 10, // Make sure the background image covers the entire screen
+//     // justifyContent: 'center',
+//     // alignItems: 'center',
+//   },
+// });

@@ -6,6 +6,10 @@ import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-nativ
 export default function TodayScreen() {
     const {weatherhourly, citycoords, showContent, errorMsg}  = useMyContext()
     return(
+        <ImageBackground
+        source={require('../background.jpg')}
+        style={styles.background}
+      >
         <View style={styles.container}>
             {showContent ? (
              errorMsg ? ( 
@@ -37,16 +41,23 @@ export default function TodayScreen() {
             )
             ) : (<></>)}
         </View>
+        </ImageBackground>
     )
   }
   
 const styles = StyleSheet.create({
+    background: {
+        flex: 1, // Make sure the background image covers the entire screen
+        justifyContent: 'center',
+        alignItems: 'center',
+      },
     container: {
       flex: 1,
+    //   paddingTop: 50,
       alignItems: 'center',
     },
     showContent : {
-        paddingTop: 15,
+        paddingTop: 20,
     },
     text : {
         color: "gray",
