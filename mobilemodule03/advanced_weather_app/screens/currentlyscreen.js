@@ -1,15 +1,13 @@
 import { StyleSheet, Text, View, ImageBackground, Image } from 'react-native';
-import {getWeatherDescription} from '../utils/utils.js'
+import {getWeatherDescription, mapimagePath} from '../utils/utils.js'
 import { useMyContext } from '../Context';
 import { BlurView } from '@react-native-community/blur';
-// import react, { useEffect, useState} from 'react';
-// import {WeatherData} from '../api/api.js'
 
 export default function CurrentlyScreen() {
     const {citycoords, showContent, errorMsg, weather} = useMyContext()
     return(
       <ImageBackground
-        source={require('../background.jpg')}
+        source={require('../assets/background.jpg')}
         style={styles.background}
       >
             {showContent ? (
@@ -23,9 +21,9 @@ export default function CurrentlyScreen() {
                   <View style={styles.weathercontainer}>
                     <Text style={styles.temperature}>{weather?.current?.temperature_2m}{weather?.current_units?.temperature_2m}</Text>
                     <Text style={styles.textcontainer}>{getWeatherDescription(weather?.current?.weather_code)}</Text>
-                    <Image source={require('../sun.png')} style={styles.icon} />
+                    <Image source={mapimagePath[getWeatherDescription(weather?.current?.weather_code)]} style={styles.icon} />
                     <View style={styles.windcontainer}>
-                      <Image source={require('../wind.png')} style={styles.windicon} />
+                      <Image source={require('../assets/wind.png')} style={styles.windicon} />
                       <Text style={styles.textcontainer}>{weather?.current?.wind_speed_10m} {weather?.current_units?.wind_speed_10m}</Text>
                     </View>
                   </View>
@@ -61,7 +59,6 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   icon : {
-    // color: 'blue',
     width: 100,
     height: 100,
     marginTop: 5,
@@ -74,16 +71,12 @@ const styles = StyleSheet.create({
     marginBottom: 50,
   },
   windcontainer: {
-    // alignItems: 'center',
     flexDirection: 'row',
-    // margin: 'auto',
   },
   windicon : {
-    // paddingRight: 15,
     marginRight: '5',
     width: 30,
     height: 30,
-
   },
   showerror : {
     // width : '100%',

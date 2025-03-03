@@ -14,7 +14,7 @@ export default function App() {
     <MyProvider>
       <NavigationContainer>
       <ImageBackground
-                source={require('./background.jpg')}
+                source={require('./assets/background.jpg')}
                 style={styles.background}
       >
           <TopBar />
@@ -29,8 +29,6 @@ export default function App() {
 const styles = StyleSheet.create({
   background: {
     flex: 1,
-    // paddingTop: 10, // Make sure the background image covers the entire screen
-    // justifyContent: 'center',
-    // alignItems: 'center',
+    // paddingTop: 10,
   },
 });

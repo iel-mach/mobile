@@ -7,7 +7,7 @@ export default function WeeklyScreen() {
     const {citycoords, showContent, errorMsg, weather} = useMyContext()
     return(
         <ImageBackground
-                        source={require('../background.jpg')}
+                        source={require('../assets/background.jpg')}
                         style={styles.background}
                       >
         <View style={styles.container}>

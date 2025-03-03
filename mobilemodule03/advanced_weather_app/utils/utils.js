@@ -45,3 +45,20 @@ export const getWeatherDescription = (code) => {
         return "Unknown weather";
     }
   };
+
+
+export const mapimagePath = {
+  'Clear' : require('../assets/Clear.png'),
+  'Overcast' : require('../assets/Overcast.png'),
+  'Fog' : require('../assets/Fog.png'),
+  'Drizzle' : require('../assets/Drizzle.png'),
+  'Freezing Drizzle' : require('../assets/Freezing Drizzle.png'),
+  'Rain' : require('../assets/Rain.png'),
+  'Freezing Rain' : require('../assets/Freezing Rain.png'),
+  'Snow fall' : require('../assets/Snow fall.png'),
+  'Snow grains' : require('../assets/Snow grains.png'),
+  'Rain showers' : require('../assets/Rain showers.png'),
+  'Snow showers' : require('../assets/Snow showers.png'),
+  'Thunderstorm' : require('../assets/Thunderstorm.png'),
+  'Thunderstorm with slight and heavy hail' : require('../assets/Thunderstorm with slight and heavy hail.png'),
+}

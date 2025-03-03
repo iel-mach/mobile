@@ -1,47 +1,72 @@
-import { StyleSheet, Text, View, FlatList, ImageBackground } from 'react-native';
+import { Dimensions, StyleSheet, Text, View, FlatList, ImageBackground } from 'react-native';
 import { useMyContext } from '../Context';
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
-
+import {
+    LineChart,
+    BarChart,
+    PieChart,
+    ProgressChart,
+    ContributionGraph,
+    StackedBarChart
+  } from "react-native-chart-kit";
 
 export default function TodayScreen() {
     const {weatherhourly, citycoords, showContent, errorMsg}  = useMyContext()
     return(
-        <ImageBackground
-        source={require('../background.jpg')}
-        style={styles.background}
-      >
-        <View style={styles.container}>
-            {showContent ? (
-             errorMsg ? ( 
-                <View style={styles.showerror}>
-                    <Text style={styles.error}>{errorMsg}</Text>
-                </View>
-            ) : (
-                <View style={styles.showContent}>
-                <Text style={styles.text}>{citycoords?.city}</Text>
-                <Text style={styles.text}>{citycoords?.region}</Text>
-                <Text style={styles.text}>{citycoords?.country}</Text>
-                <FlatList
-                    data={weatherhourly?.hourly?.time}
-                    renderItem={({item, index}) => {
-                        return(
-                            <>
-                            {/* {console.log(item)} */}
-                            <View style={styles.weathercontainer}>
-                                <Text style={styles.weathertext}>{item?.split("T")[1]}</Text>
-                                <Text style={styles.weathertext}>{weatherhourly?.hourly?.temperature_2m[index]} {weatherhourly?.hourly_units?.temperature_2m}</Text>
-                                <Text style={styles.weathertext}>{weatherhourly?.hourly?.wind_speed_10m[index]} {weatherhourly?.hourly_units?.wind_speed_10m}</Text>
-                            </View>
-                            </>
-                        )
-                    }}
-                    keyExtractor={(item) => item}
-                />
-                </View>
-            )
-            ) : (<></>)}
-        </View>
-        </ImageBackground>
+    //     <ImageBackground
+    //     source={require('../assets/background.jpg')}
+    //     style={styles.background}
+    //   >
+        <View>
+  <LineChart
+    data={{
+      labels: ["00:00", "03:00", "06:00", "09:00", "12:00", "15:00", "18:00", "21:00"],
+      datasets: [
+        {
+          data: [
+            0,
+            2,
+            4,
+            6,
+            8,
+            10,
+            12,
+            14,
+          ]
+        }
+      ]
+    }}
+    width={Dimensions.get("window").width} // from react-native
+    height={220}
+    // yAxisLabel="$"
+    yAxisSuffix="C"
+    yAxisInterval={1} 
+    // xAxisInterval={2}// optional, defaults to 1
+    chartConfig={{
+      backgroundColor: "#1E2923",
+      backgroundGradientFrom: "transparent",
+      backgroundGradientTo: "transparent",
+      decimalPlaces: 0, // optional, defaults to 2dp
+      color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+      labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+      style: {
+        borderRadius: 16,
+        // background: 'transparent'
+      },
+      propsForDots: {
+        r: "6",
+        strokeWidth: "2",
+        stroke: "#ffa726"
+      }
+    }}
+    bezier
+    style={{
+      marginVertical: 8,
+      borderRadius: 16
+    }}
+  />
+</View>
+        // </ImageBackground>
     )
   }
   
