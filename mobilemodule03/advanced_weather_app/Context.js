@@ -1,5 +1,4 @@
 import React, { createContext, useState, useContext, useEffect } from 'react';
-// import {WeatherData} from './api/api'
 import * as Location from 'expo-location';
 
 
@@ -22,22 +21,15 @@ export const MyProvider = ({ children }) => {
 
     async function getMyLocation() {
       let { status } = await Location.requestForegroundPermissionsAsync();
-      // console.log("/////",status);
       if (status !== 'granted') {
         setErrorMsg('geolocation is not available please enable it in you settings');
         return;
       }
-      // await requestPermissions();
-      // let location = await Location.getCurrentPositionAsync({});
-      // console.log(location);
-      // let location = await Location.getCurrentPositionAsync({});
-      // console.log("\\\\\\",location);
       let location = await Location.getCurrentPositionAsync({
         accuracy: Location.Accuracy.Highest,
         maximumAge: 10000,
         timeout: 5000
       });
-      // console.log({ location })
       setMyocation({
         lt: location.coords.latitude,
         lg: location.coords.longitude,
@@ -78,7 +70,7 @@ export const MyProvider = ({ children }) => {
     const WeatherDatahourly = async () => {
       try {
         const response = await fetch(
-          `https://api.open-meteo.com/v1/forecast?latitude=${citycoords.lt}&longitude=${citycoords.lg}&hourly=temperature_2m,wind_speed_10m&forecast_days=1`
+          `https://api.open-meteo.com/v1/forecast?latitude=${citycoords.lt}&longitude=${citycoords.lg}&hourly=temperature_2m,wind_speed_10m,weather_code&forecast_days=1`
         );
         if (!response.ok) {
           throw new Error('The service connection is lost,  please check your internet connection or try again later');
@@ -93,7 +85,6 @@ export const MyProvider = ({ children }) => {
     
     useEffect(() => {
       getMyLocation();
-      // console.log("====>", citycoords);
     }, [])
     
     useEffect (() => {

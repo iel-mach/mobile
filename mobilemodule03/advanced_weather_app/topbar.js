@@ -1,11 +1,8 @@
-import react, { useEffect} from 'react';
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 import FontAwesome from 'react-native-vector-icons/FontAwesome5';
 import { StyleSheet, View, Text, TextInput, TouchableOpacity,Keyboard, FlatList } from 'react-native';
 import { useMyContext } from './Context';
-import * as Location from 'expo-location';
 import {getcities} from './api/api.js';
-import axios from 'axios';
 
 
 export default function TopBar() {
@@ -67,7 +64,7 @@ export default function TopBar() {
                 <Text style={styles.emptyListText}>No City found.</Text>
                 </View>
               ) : ( 
-                <></>
+                null
               )}
             </View>
           )}
@@ -100,7 +97,6 @@ const styles = StyleSheet.create({
       flexDirection: 'row',
       alignItems: 'center',
       justifyContent: 'center'
-
     },
     iconsearch: {
       marginLeft: wp(5),
@@ -117,16 +113,14 @@ const styles = StyleSheet.create({
     itemcontainer: {
       flexDirection: 'row',
       alignItems: 'center',
-      // justifyContent: 'center',
       padding: 15,
       borderBottomWidth: 1,
       borderBottomColor: 'gray',
       backgroundColor: 'transparent',
     },
     touchable: {
-      flexDirection: 'row', // Ensure that text elements are aligned in a row
-      alignItems: 'center', // Aligns text vertically if needed
-      // justifyContent: 'center',
+      flexDirection: 'row',
+      alignItems: 'center',
     },
     citysearch: {
       marginRight: 10,
@@ -138,7 +132,6 @@ const styles = StyleSheet.create({
       marginRight: 10,
       fontSize: 16,
       color: 'gray',
-      // fontWeight: 'bold',
     },
     emptyListText : {
       fontSize: 16,

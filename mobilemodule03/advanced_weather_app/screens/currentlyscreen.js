@@ -1,7 +1,6 @@
 import { StyleSheet, Text, View, ImageBackground, Image } from 'react-native';
 import {getWeatherDescription, mapimagePath} from '../utils/utils.js'
 import { useMyContext } from '../Context';
-import { BlurView } from '@react-native-community/blur';
 
 export default function CurrentlyScreen() {
     const {citycoords, showContent, errorMsg, weather} = useMyContext()
@@ -10,27 +9,34 @@ export default function CurrentlyScreen() {
         source={require('../assets/background.jpg')}
         style={styles.background}
       >
-            {showContent ? (
-             errorMsg ? (
+            {showContent ? 
+            (
+              errorMsg ? 
+              (
                 <Text style={styles.error}>{errorMsg}</Text>
-            ) : (
-              <View style={styles.showContent}>
-                  <Text style={styles.city}>{citycoords.city}</Text>
-                  <Text style={styles.textcontainer}>{citycoords.region}, {citycoords.country}</Text>
-                {weather ? (
-                  <View style={styles.weathercontainer}>
-                    <Text style={styles.temperature}>{weather?.current?.temperature_2m}{weather?.current_units?.temperature_2m}</Text>
-                    <Text style={styles.textcontainer}>{getWeatherDescription(weather?.current?.weather_code)}</Text>
-                    <Image source={mapimagePath[getWeatherDescription(weather?.current?.weather_code)]} style={styles.icon} />
-                    <View style={styles.windcontainer}>
-                      <Image source={require('../assets/wind.png')} style={styles.windicon} />
-                      <Text style={styles.textcontainer}>{weather?.current?.wind_speed_10m} {weather?.current_units?.wind_speed_10m}</Text>
+              ) : 
+              (
+                weather ? 
+                (
+                  <View style={styles.showContent}>
+                    <Text style={styles.city}>{citycoords.city}</Text>
+                    <Text style={styles.textcontainer}>{citycoords.region}, {citycoords.country}</Text>
+                    <View style={styles.weathercontainer}>
+                      <Text style={styles.temperature}>{weather?.current?.temperature_2m}{weather?.current_units?.temperature_2m}</Text>
+                      <Text style={styles.textcontainer}>{getWeatherDescription(weather?.current?.weather_code)}</Text>
+                      <Image source={mapimagePath[getWeatherDescription(weather?.current?.weather_code)]} style={styles.icon} />
+                      <View style={styles.windcontainer}>
+                        <Image source={require('../assets/wind.png')} style={styles.windicon} />
+                        <Text style={styles.textcontainer}>{weather?.current?.wind_speed_10m} {weather?.current_units?.wind_speed_10m}</Text>
+                      </View>
                     </View>
                   </View>
-                ) : (<></>)
-                }
-              </View>
-            )
+                  
+                ) : 
+                (
+                  <Text style={styles.isloading}>Data has been loaded! ....</Text>
+                )
+              )
             ) : null}
         </ImageBackground>
     )
@@ -50,7 +56,7 @@ const styles = StyleSheet.create({
   city : {
     paddingTop: 30,
     fontSize: 30,
-    color: '#7B68EE',
+    color: '#1E90FF',
     textAlign: 'center',
   },
   textcontainer: {
@@ -78,20 +84,15 @@ const styles = StyleSheet.create({
     width: 30,
     height: 30,
   },
-  showerror : {
-    // width : '100%',
-    // justifyContent: 'center',
-    // alignItems: 'center',
-    // position: 'absolute',
-    // top: 0, 
-    // left: 0, 
-    // right: 0, 
-    // bottom: 0, 
-  },
   error : {
     fontSize: 20,
     fontWeight: "800",
     color: "red",
     textAlign: 'center',
-  }
-  });
+  },
+  isloading : {
+    fontSize: 40,
+    fontWeight: "800",
+    color: 'gray',
+  },
+});

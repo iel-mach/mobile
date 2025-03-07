@@ -3,8 +3,7 @@ import * as ScreenOrientation from 'expo-screen-orientation';
 import { MyProvider } from './Context';
 import BottomBar from './bottombar';
 import TopBar from './topbar';
-import {StyleSheet, ImageBackground, View } from 'react-native';
-import {useEffect, useState} from 'react'
+import {StyleSheet, ImageBackground} from 'react-native';
 
 
 export default function App() {
@@ -13,13 +12,12 @@ export default function App() {
   return (
     <MyProvider>
       <NavigationContainer>
-      <ImageBackground
-                source={require('./assets/background.jpg')}
-                style={styles.background}
-      >
+        <ImageBackground
+          source={require('./assets/background.jpg')}
+          style={styles.background}
+        >
           <TopBar />
           <BottomBar/>
-
         </ImageBackground>
       </NavigationContainer>
     </MyProvider>
@@ -29,6 +27,5 @@ export default function App() {
 const styles = StyleSheet.create({
   background: {
     flex: 1,
-    // paddingTop: 10,
   },
 });
